@@ -88,9 +88,10 @@ def main():
     video_url = info_data.get("data", {}).get("currentStages", {}).get("url")
 
     study_data = commit_study_record(info_data)
+    study_msg = study_data.get("msg")
     if study_data.get("code") not in [200, 2]:
-        print("学习记录提交失败")
-        send_notification("青年大学习", "学习记录提交失败")
+        print("学习记录提交失败，" + study_msg)
+        send_notification("青年大学习", f"学习记录提交失败，{study_msg}")
         return
 
     content = get_notification_content(info_data, snum, name, orgName, video_url)
